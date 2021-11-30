@@ -18,10 +18,12 @@
     "dotenv": "10.0.0"
   },
   "devDependencies": {
+    "@shcherbin/eslint-config": "^0.2.0",
     "chai": "4.3.4",
     "cross-env": "^7.0.3",
     "debug": "4.3.3",
     "dirty-chai": "2.0.1",
+    "eslint": "^8.3.0",
     "jest": "27.4.0",
     "nodemon": "2.0.15",
     "supertest": "6.1.6"
