@@ -1,10 +1,9 @@
 {
   "name": "trello-competitor",
-  "main": "src/server.js",
   "scripts": {
     "dev": "nodemon -w src",
     "lint": "eslint src",
-    "start": "node --experimental-specifier-resolution node -r dotenv/config src/server",
+    "start": "node --experimental-specifier-resolution node -r dotenv/config src/server.js",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace"
   },
@@ -15,7 +14,10 @@
     ]
   },
   "dependencies": {
-    "dotenv": "10.0.0"
+    "@koa/router": "^10.1.1",
+    "dotenv": "10.0.0",
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0"
   },
   "devDependencies": {
     "@shcherbin/eslint-config": "^0.2.0",
