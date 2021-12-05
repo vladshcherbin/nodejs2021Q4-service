@@ -16,7 +16,5 @@ app
   .use(boardsRouter.routes())
   .use(tasksRouter.routes())
   .use(usersRouter.routes())
-  .on('error', (error) => {
-    console.log('Server error', error)
-  })
+  .on('error', () => {})
   .listen(process.env.PORT || 4000)
