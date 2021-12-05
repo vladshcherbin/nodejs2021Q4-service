@@ -19,9 +19,9 @@ export default function errorHandler() {
           validationErrors: error.validationErrors
         }
       } else {
-        context.status = 500
+        context.status = error.statusCode || error.status || 500
         context.body = {
-          message: STATUS_CODES[context.status]
+          message: STATUS_CODES[context.status] || context.status
         }
       }
 
