@@ -24,4 +24,15 @@ export default async function createInMemoryDatabase() {
       table.string('title')
       table.jsonb('columns')
     })
+
+  await connection.schema
+    .createTable('tasks', (table) => {
+      table.uuid('id')
+      table.string('title')
+      table.integer('order')
+      table.string('description')
+      table.uuid('userId')
+      table.uuid('boardId')
+      table.uuid('columnId')
+    })
 }
