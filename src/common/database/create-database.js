@@ -17,4 +17,11 @@ export default async function createInMemoryDatabase() {
       table.string('login')
       table.string('password')
     })
+
+  await connection.schema
+    .createTable('boards', (table) => {
+      table.uuid('id')
+      table.string('title')
+      table.jsonb('columns')
+    })
 }
