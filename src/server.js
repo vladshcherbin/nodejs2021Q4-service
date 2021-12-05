@@ -1,8 +1,8 @@
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
 import boardsRouter from './domains/boards/router'
-import usersRouter from './domains/users/router'
 import errorHandler from './common/error-handler'
+import usersRouter from './resources/users/router'
 
 const app = new Koa()
 
