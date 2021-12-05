@@ -4,8 +4,8 @@ export function findAll() {
   return User.query()
 }
 
-export function findById(id) {
-  return User.query().findById(id).throwIfNotFound({ message: 'User not found' })
+export function findById(userId) {
+  return User.query().findById(userId).throwIfNotFound({ message: 'User not found' })
 }
 
 export function create(data) {
