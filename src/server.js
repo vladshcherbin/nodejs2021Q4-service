@@ -19,4 +19,4 @@ app
   .on('error', (error) => {
     console.log('Server error', error)
   })
-  .listen(process.env.PORT || 3000)
+  .listen(process.env.PORT || 4000)
