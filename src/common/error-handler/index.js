@@ -1,5 +1,6 @@
 import { STATUS_CODES } from 'http'
 import { NotFoundError } from 'objection'
+import { ValidationError } from '../validation'
 
 export default function errorHandler() {
   return async function errorHandlerMiddleware(context, next) {
@@ -10,6 +11,12 @@ export default function errorHandler() {
         context.status = error.statusCode
         context.body = {
           message: error.message
+        }
+      } else if (error instanceof ValidationError) {
+        context.status = 400
+        context.body = {
+          message: error.message,
+          validationErrors: error.validationErrors
         }
       } else {
         context.status = 500
