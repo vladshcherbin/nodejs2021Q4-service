@@ -16,6 +16,10 @@ export function update(boardId, data) {
   return Board.query().updateAndFetchById(boardId, data).throwIfNotFound({ message: 'Board not found' })
 }
 
-export function del(boardId) {
-  return Board.query().deleteById(boardId).throwIfNotFound({ message: 'Board not found' })
+export async function del(boardId) {
+  const deletedBoard = await Board.query().deleteById(boardId).throwIfNotFound({ message: 'Board not found' })
+
+  await Board.relatedQuery('tasks').for(boardId).delete()
+
+  return deletedBoard
 }
