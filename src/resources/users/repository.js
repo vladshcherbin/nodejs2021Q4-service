@@ -16,6 +16,10 @@ export function update(userId, data) {
   return User.query().updateAndFetchById(userId, data).throwIfNotFound({ message: 'User not found' })
 }
 
-export function del(userId) {
-  return User.query().deleteById(userId).throwIfNotFound({ message: 'User not found' })
+export async function del(userId) {
+  const deletedUser = await User.query().deleteById(userId).throwIfNotFound({ message: 'User not found' })
+
+  await User.relatedQuery('tasks').for(userId).patch({ userId: null })
+
+  return deletedUser
 }
