@@ -7,7 +7,7 @@ export function findAll(boardId) {
 }
 
 export function findById(boardId, taskId) {
-  return Task.query().findOne({ id: taskId, boardId }).throwIfNotFound({ message: 'Task not found' })
+  return Task.query().findOne({ id: taskId, boardId }).throwIfNotFound()
 }
 
 export async function create(boardId, data) {
@@ -34,11 +34,11 @@ export async function update(boardId, taskId, data) {
     columnId: string().nullable().uuid()
   })
   const validData = await validate(schema, data)
-  const task = await Task.query().findOne({ id: taskId, boardId }).throwIfNotFound({ message: 'Task not found' })
+  const task = await Task.query().findOne({ id: taskId, boardId }).throwIfNotFound()
 
   return task.$query().updateAndFetch(validData)
 }
 
 export function del(boardId, taskId) {
-  return Task.query().findOne({ id: taskId, boardId }).delete().throwIfNotFound({ message: 'Task not found' })
+  return Task.query().findOne({ id: taskId, boardId }).delete().throwIfNotFound()
 }

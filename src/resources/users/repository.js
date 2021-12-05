@@ -7,7 +7,7 @@ export function findAll() {
 }
 
 export function findById(userId) {
-  return User.query().findById(userId).throwIfNotFound({ message: 'User not found' })
+  return User.query().findById(userId).throwIfNotFound()
 }
 
 export async function create(data) {
@@ -29,11 +29,11 @@ export async function update(userId, data) {
   })
   const validData = await validate(schema, data)
 
-  return User.query().updateAndFetchById(userId, validData).throwIfNotFound({ message: 'User not found' })
+  return User.query().updateAndFetchById(userId, validData).throwIfNotFound()
 }
 
 export async function del(userId) {
-  const deletedUser = await User.query().deleteById(userId).throwIfNotFound({ message: 'User not found' })
+  const deletedUser = await User.query().deleteById(userId).throwIfNotFound()
 
   await User.relatedQuery('tasks').for(userId).patch({ userId: null })
 

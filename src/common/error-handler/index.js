@@ -1,5 +1,5 @@
 import { STATUS_CODES } from 'http'
-import { NotFoundError } from 'objection'
+import { NotFoundError } from '../database'
 import { ValidationError } from '../validation'
 
 export default function errorHandler() {
@@ -8,7 +8,7 @@ export default function errorHandler() {
       await next()
     } catch (error) {
       if (error instanceof NotFoundError) {
-        context.status = error.statusCode
+        context.status = 404
         context.body = {
           message: error.message
         }

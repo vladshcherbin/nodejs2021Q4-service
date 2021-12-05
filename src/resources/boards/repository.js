@@ -7,7 +7,7 @@ export function findAll() {
 }
 
 export function findById(boardId) {
-  return Board.query().findById(boardId).throwIfNotFound({ message: 'Board not found' })
+  return Board.query().findById(boardId).throwIfNotFound()
 }
 
 export async function create(data) {
@@ -33,11 +33,11 @@ export async function update(boardId, data) {
   })
   const validData = await validate(schema, data)
 
-  return Board.query().updateAndFetchById(boardId, validData).throwIfNotFound({ message: 'Board not found' })
+  return Board.query().updateAndFetchById(boardId, validData).throwIfNotFound()
 }
 
 export async function del(boardId) {
-  const deletedBoard = await Board.query().deleteById(boardId).throwIfNotFound({ message: 'Board not found' })
+  const deletedBoard = await Board.query().deleteById(boardId).throwIfNotFound()
 
   await Board.relatedQuery('tasks').for(boardId).delete()
 
