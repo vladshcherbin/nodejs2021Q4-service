@@ -36,6 +36,7 @@
     "debug": "4.3.3",
     "dirty-chai": "2.0.1",
     "eslint": "^8.5.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
     "jest": "27.4.5",
     "nodemon": "2.0.15",
     "supertest": "6.1.6",
