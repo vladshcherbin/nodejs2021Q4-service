@@ -3,7 +3,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "nodemon -w src",
-    "lint": "eslint src",
+    "lint": "eslint src --ext .ts",
     "start": "node --experimental-specifier-resolution node -r dotenv/config src/server.js",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace"
