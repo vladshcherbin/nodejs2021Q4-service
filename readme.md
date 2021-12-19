@@ -14,6 +14,18 @@ npm i
 yarn
 ```
 
+## Compile code
+
+Compile typescript source code:
+
+```console
+# npm
+npm run build
+
+# yarn
+yarn build
+```
+
 ## Start server
 
 Start application server:
