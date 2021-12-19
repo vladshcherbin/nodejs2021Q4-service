@@ -19,6 +19,12 @@ class User extends BaseModel {
     }
   }
 
+  /**
+   * Removes password from user external json.
+   *
+   * @param json - The JSON POJO in internal format
+   * @returns The JSON POJO in external format
+   */
   $formatJson(json: Pojo) {
     const formattedJson = super.$formatJson(json)
 

@@ -4,7 +4,7 @@ import { ValidationError } from 'yup'
  * Formats Yup validation error into an object of invalid fields with error messages.
  *
  * @param error - Yup validation error
- * @returns - Object containing invalid fields with error messages
+ * @returns Object containing invalid fields with error messages
  */
 export default function formatYupError(error: ValidationError) {
   const errors: Record<string, string> = {}
