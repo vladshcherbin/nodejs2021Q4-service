@@ -2,6 +2,9 @@ import { randomUUID } from 'crypto'
 import { CreateNotFoundErrorArgs, Model, QueryContext } from 'objection'
 import NotFoundError from './NotFoundError'
 
+/**
+ * Shared base model for other database models.
+ */
 class BaseModel extends Model {
   id!: string
 

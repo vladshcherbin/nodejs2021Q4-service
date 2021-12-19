@@ -1,6 +1,19 @@
 import isObject from 'is-plain-obj'
 import { AnySchema, ObjectSchema } from 'yup'
 
+/**
+ * Transforms data, intended to be used before validation.
+ *
+ * @remarks
+ *
+ * If data is an object and schema is an object schema:
+ * - unspecified data keys in schema are removed
+ * - string values are trimmed
+ *
+ * @param data - Raw data
+ * @param schema - Yup schema
+ * @returns Transformed data
+ */
 export default function transformData(data: unknown, schema: AnySchema) {
   if (isObject(data) && schema instanceof ObjectSchema) {
     return Object.fromEntries(

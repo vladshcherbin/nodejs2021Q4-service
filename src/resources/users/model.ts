@@ -2,6 +2,9 @@ import { Pojo } from 'objection'
 import { BaseModel } from '../../common/database'
 import Task from '../tasks/model'
 
+/**
+ * User database model.
+ */
 class User extends BaseModel {
   static tableName = 'users'
 

@@ -1,3 +1,6 @@
+/**
+ * Error thrown on failed validation.
+ */
 class ValidationError extends Error {
   validationErrors: Record<string, string>
 

@@ -3,6 +3,9 @@ import { Context, HttpError, Next } from 'koa'
 import { NotFoundError } from '../database'
 import { ValidationError } from '../validation'
 
+/**
+ * Creates error handler middleware.
+ */
 export default function errorHandler() {
   return async function errorHandlerMiddleware(context: Context, next: Next) {
     try {
