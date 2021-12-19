@@ -1,6 +1,8 @@
 class ValidationError extends Error {
-  constructor(validationErrors, ...parameters) {
-    super('Validation error', ...parameters)
+  validationErrors: Record<string, string>
+
+  constructor(validationErrors: Record<string, string>) {
+    super('Validation error')
 
     this.name = this.constructor.name
     this.validationErrors = validationErrors

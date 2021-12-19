@@ -1,3 +1,4 @@
+import { Pojo } from 'objection'
 import { BaseModel } from '../../common/database'
 import Task from '../tasks/model'
 
@@ -15,7 +16,7 @@ class User extends BaseModel {
     }
   }
 
-  $formatJson(json) {
+  $formatJson(json: Pojo) {
     const formattedJson = super.$formatJson(json)
 
     delete formattedJson.password

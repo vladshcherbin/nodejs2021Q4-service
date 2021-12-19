@@ -1,6 +1,6 @@
 class NotFoundError extends Error {
-  constructor(message, ...parameters) {
-    super(message || 'Requested item doesn\'t exist', ...parameters)
+  constructor(message?: string) {
+    super(message || 'Requested item doesn\'t exist')
 
     this.name = this.constructor.name
   }
