@@ -1,6 +1,7 @@
 {
   "name": "trello-competitor",
   "scripts": {
+    "build": "tsc",
     "dev": "nodemon -w src",
     "lint": "eslint src",
     "start": "node --experimental-specifier-resolution node -r dotenv/config src/server.js",
