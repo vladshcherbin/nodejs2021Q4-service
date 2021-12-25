@@ -1,16 +1,37 @@
+import { PartialModelObject } from 'objection'
 import { array, number, object, string } from 'yup'
 import { validate } from '../../common/validation'
 import Board from './model'
 
+/**
+ * Fetches all boards.
+ *
+ * @returns List of boards
+ */
 export function findAll() {
   return Board.query()
 }
 
-export function findById(boardId) {
+/**
+ * Fetches board by id.
+ *
+ * @param boardId - Board id
+ * @returns Specified board
+ *
+ * @throws {@link NotFoundError}
+ * Thrown when board is missing
+ */
+export function findById(boardId: Board['id']) {
   return Board.query().findById(boardId).throwIfNotFound()
 }
 
-export async function create(data) {
+/**
+ * Creates a new board.
+ *
+ * @param data - Board details
+ * @returns Created board
+ */
+export async function create(data: PartialModelObject<Board>) {
   const schema = object({
     title: string().required().min(2),
     columns: array(object({
@@ -23,7 +44,17 @@ export async function create(data) {
   return Board.query().insert(validData)
 }
 
-export async function update(boardId, data) {
+/**
+ * Updates specified board.
+ *
+ * @param boardId - Board id
+ * @param data - Updated board details
+ * @returns Updated board
+ *
+ * @throws {@link NotFoundError}
+ * Thrown when board is missing
+ */
+export async function update(boardId: Board['id'], data: PartialModelObject<Board>) {
   const schema = object({
     title: string().required().min(2),
     columns: array(object({
@@ -36,7 +67,16 @@ export async function update(boardId, data) {
   return Board.query().updateAndFetchById(boardId, validData).throwIfNotFound()
 }
 
-export async function del(boardId) {
+/**
+ * Deletes specified board.
+ *
+ * @param boardId - Board id
+ * @returns Deleted board
+ *
+ * @throws {@link NotFoundError}
+ * Thrown when board is missing
+ */
+export async function del(boardId: Board['id']) {
   const deletedBoard = await Board.query().deleteById(boardId).throwIfNotFound()
 
   await Board.relatedQuery('tasks').for(boardId).delete()

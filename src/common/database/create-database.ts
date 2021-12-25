@@ -1,6 +1,9 @@
 import knex from 'knex'
 import { Model } from 'objection'
 
+/**
+ * Creates in-memory database and its structure.
+ */
 export default async function createInMemoryDatabase() {
   const connection = knex({
     client: 'sqlite3',

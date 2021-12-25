@@ -1,6 +1,10 @@
+import { Pojo } from 'objection'
 import { BaseModel } from '../../common/database'
 import Task from '../tasks/model'
 
+/**
+ * User database model.
+ */
 class User extends BaseModel {
   static tableName = 'users'
 
@@ -15,7 +19,13 @@ class User extends BaseModel {
     }
   }
 
-  $formatJson(json) {
+  /**
+   * Removes password from user external json.
+   *
+   * @param json - The JSON POJO in internal format
+   * @returns The JSON POJO in external format
+   */
+  $formatJson(json: Pojo) {
     const formattedJson = super.$formatJson(json)
 
     delete formattedJson.password

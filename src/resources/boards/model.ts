@@ -1,6 +1,9 @@
 import { BaseModel } from '../../common/database'
 import Task from '../tasks/model'
 
+/**
+ * Board database model.
+ */
 class Board extends BaseModel {
   static tableName = 'boards'
 

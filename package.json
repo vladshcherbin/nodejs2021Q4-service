@@ -1,11 +1,11 @@
 {
   "name": "trello-competitor",
   "scripts": {
-    "dev": "nodemon -w src",
-    "lint": "eslint src",
-    "start": "node --experimental-specifier-resolution node -r dotenv/config src/server.js",
-    "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
-    "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace"
+    "build": "tsc",
+    "dev": "nodemon -w dist",
+    "lint": "eslint src --ext .ts",
+    "start": "node --experimental-specifier-resolution node -r dotenv/config dist/server.js",
+    "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand"
   },
   "jest": {
     "testEnvironment": "node",
@@ -16,25 +16,31 @@
   "dependencies": {
     "@koa/router": "^10.1.1",
     "dotenv": "10.0.0",
-    "knex": "^0.95.14",
+    "is-plain-obj": "^4.0.0",
+    "knex": "^0.21.21",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
-    "objection": "^3.0.0",
+    "objection": "^2.2.18",
     "pino": "^7.5.1",
-    "pino-pretty": "^7.2.0",
+    "pino-pretty": "^7.3.0",
     "sqlite3": "^5.0.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@shcherbin/eslint-config": "^0.2.0",
+    "@shcherbin/eslint-config": "^0.3.1",
+    "@types/koa": "^2.13.4",
+    "@types/koa-bodyparser": "^4.3.4",
+    "@types/koa__router": "^8.0.11",
     "chai": "4.3.4",
     "cross-env": "^7.0.3",
     "debug": "4.3.3",
     "dirty-chai": "2.0.1",
-    "eslint": "^8.3.0",
-    "jest": "27.4.0",
+    "eslint": "^8.5.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
+    "jest": "27.4.5",
     "nodemon": "2.0.15",
-    "supertest": "6.1.6"
+    "supertest": "6.1.6",
+    "typescript": "^4.5.4"
   },
   "engines": {
     "node": "16.x"
