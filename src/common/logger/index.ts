@@ -21,5 +21,8 @@ export default pino({
         }
       }
     ]
-  }
+  },
+  ...(process.env.LOG_LEVEL && {
+    level: process.env.LOG_LEVEL
+  })
 })
