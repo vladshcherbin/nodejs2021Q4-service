@@ -33,22 +33,18 @@ function responseLogLevel(status: Response['status']) {
 export default function httpLogger() {
   return async function httpLoggerMiddleware(context: Context, next: Next) {
     httpChildLogger.info({
-      request: {
-        method: context.method,
-        path: context.path,
-        query: context.query,
-        body: context.request.body
-      }
-    })
+      method: context.method,
+      path: context.path,
+      query: context.query,
+      body: context.request.body
+    }, 'request')
 
     await next()
 
     httpChildLogger[responseLogLevel(context.status)]({
-      response: {
-        method: context.method,
-        path: context.path,
-        status: context.status
-      }
-    })
+      method: context.method,
+      path: context.path,
+      status: context.status
+    }, 'response')
   }
 }
