@@ -31,12 +31,12 @@ export default function prettifier() {
         messageParts.push(method)
       }
 
-      if (path) {
-        messageParts.push(path)
-      }
-
       if (status) {
         messageParts.push(status)
+      }
+
+      if (path) {
+        messageParts.push(path)
       }
 
       if (message && message !== 'request' && message !== 'response') {
