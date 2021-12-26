@@ -74,9 +74,10 @@ export async function update(userId: User['id'], data: PartialModelObject<User>)
  * Thrown when user is missing
  */
 export async function del(userId: User['id']) {
-  const deletedUser = await User.query().deleteById(userId).throwIfNotFound()
+  const user = await User.query().findById(userId).throwIfNotFound()
 
+  await user.$query().delete()
   await User.relatedQuery('tasks').for(userId).patch({ userId: null } as PartialModelObject<Task>)
 
-  return deletedUser
+  return user
 }

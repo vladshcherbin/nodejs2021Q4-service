@@ -85,6 +85,10 @@ export async function update(boardId: Board['id'], taskId: Task['id'], data: Par
  * @throws {@link NotFoundError}
  * Thrown when task is missing
  */
-export function del(boardId: Board['id'], taskId: Task['id']) {
-  return Task.query().findOne({ id: taskId, boardId }).delete().throwIfNotFound()
+export async function del(boardId: Board['id'], taskId: Task['id']) {
+  const task = await Task.query().findOne({ id: taskId, boardId }).throwIfNotFound()
+
+  await task.$query().delete()
+
+  return task
 }

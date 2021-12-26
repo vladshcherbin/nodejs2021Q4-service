@@ -77,9 +77,10 @@ export async function update(boardId: Board['id'], data: PartialModelObject<Boar
  * Thrown when board is missing
  */
 export async function del(boardId: Board['id']) {
-  const deletedBoard = await Board.query().deleteById(boardId).throwIfNotFound()
+  const board = await Board.query().findById(boardId).throwIfNotFound()
 
+  await board.$query().delete()
   await Board.relatedQuery('tasks').for(boardId).delete()
 
-  return deletedBoard
+  return board
 }
