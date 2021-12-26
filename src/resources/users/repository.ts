@@ -29,7 +29,7 @@ export function findById(userId: User['id']) {
 /**
  * Creates a new user.
  *
- * @param data - User details
+ * @param data - User data
  * @returns Created user
  */
 export async function create(data: PartialModelObject<User>) {
@@ -47,7 +47,7 @@ export async function create(data: PartialModelObject<User>) {
  * Updates specified user.
  *
  * @param userId - User id
- * @param data - Updated user details
+ * @param data - Updated user data
  * @returns Updated user
  *
  * @throws {@link NotFoundError}

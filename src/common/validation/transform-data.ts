@@ -2,7 +2,7 @@ import isObject from 'is-plain-obj'
 import { AnySchema, ObjectSchema } from 'yup'
 
 /**
- * Transforms data, intended to be used before validation.
+ * Transforms data. Intended to be used before validation.
  *
  * @remarks
  *

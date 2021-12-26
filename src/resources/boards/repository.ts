@@ -28,7 +28,7 @@ export function findById(boardId: Board['id']) {
 /**
  * Creates a new board.
  *
- * @param data - Board details
+ * @param data - Board data
  * @returns Created board
  */
 export async function create(data: PartialModelObject<Board>) {
@@ -48,7 +48,7 @@ export async function create(data: PartialModelObject<Board>) {
  * Updates specified board.
  *
  * @param boardId - Board id
- * @param data - Updated board details
+ * @param data - Updated board data
  * @returns Updated board
  *
  * @throws {@link NotFoundError}

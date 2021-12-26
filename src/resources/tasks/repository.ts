@@ -32,7 +32,7 @@ export function findById(boardId: Board['id'], taskId: Task['id']) {
  * Creates a new board task.
  *
  * @param boardId - Board id
- * @param data - Task details
+ * @param data - Task data
  * @returns Created task
  */
 export async function create(boardId: Board['id'], data: PartialModelObject<Task>) {
@@ -54,7 +54,7 @@ export async function create(boardId: Board['id'], data: PartialModelObject<Task
  *
  * @param boardId - Board id
  * @param taskId - Task id
- * @param data - Updated task details
+ * @param data - Updated task data
  * @returns Updated task
  *
  * @throws {@link NotFoundError}

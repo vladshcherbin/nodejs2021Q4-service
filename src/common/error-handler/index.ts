@@ -5,6 +5,8 @@ import { ValidationError } from '../validation'
 
 /**
  * Creates error handler middleware.
+ *
+ * @returns Error handler middleware
  */
 export default function errorHandler() {
   return async function errorHandlerMiddleware(context: Context, next: Next) {
