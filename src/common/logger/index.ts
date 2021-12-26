@@ -5,6 +5,11 @@ export default pino({
   transport: {
     targets: [
       {
+        target: '../prettifier',
+        level: 'info',
+        options: {}
+      },
+      {
         target: 'pino/file',
         level: 'trace',
         options: {
