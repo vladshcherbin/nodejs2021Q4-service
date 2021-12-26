@@ -2,7 +2,7 @@ import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
 import { createInMemoryDatabase } from './common/database'
 import errorHandler from './common/error-handler'
-import httpLogger from './common/http-logger'
+import { httpLogger, logRequest } from './common/http-logger'
 import logger from './common/logger'
 import boardsRouter from './resources/boards/router'
 import tasksRouter from './resources/tasks/router'
@@ -13,7 +13,13 @@ await createInMemoryDatabase()
 const app = new Koa()
 
 app
-  .use(bodyParser())
+  .use(bodyParser({
+    onerror: (error, context) => {
+      logRequest(context)
+
+      throw error
+    }
+  }))
   .use(httpLogger())
   .use(errorHandler())
   .use(boardsRouter.routes())
