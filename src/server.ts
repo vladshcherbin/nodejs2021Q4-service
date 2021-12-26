@@ -13,9 +13,9 @@ await createInMemoryDatabase()
 const app = new Koa()
 
 app
-  .use(errorHandler())
   .use(bodyParser())
   .use(httpLogger())
+  .use(errorHandler())
   .use(boardsRouter.routes())
   .use(tasksRouter.routes())
   .use(usersRouter.routes())
