@@ -23,3 +23,15 @@ app
   .listen(process.env.PORT || 4000, () => {
     logger.info('Server is up and running')
   })
+
+process
+  .on('uncaughtException', (error) => {
+    logger.fatal(error, 'uncaughtException')
+    process.exit(1)
+  })
+  .on('unhandledRejection', (reason) => {
+    logger.fatal(reason || 'unhandledRejection', 'unhandledRejection')
+    process.exit(1)
+  })
+
+Promise.reject(Error('Oops!'))
