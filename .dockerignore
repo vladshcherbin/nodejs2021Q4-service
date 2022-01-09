@@ -1,0 +1,8 @@
+.github
+dist
+logs
+node_modules
+test
+docker-compose.yml
+Dockerfile
+readme.md
