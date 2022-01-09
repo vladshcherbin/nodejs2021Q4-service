@@ -33,5 +33,3 @@ process
     logger.fatal(reason || 'unhandledRejection', 'unhandledRejection')
     process.exit(1)
   })
-
-Promise.reject(Error('Oops!'))
