@@ -32,10 +32,11 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       PGDATA: ${PGDATA}
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - database:/var/lib/postgresql/data
     restart: on-failure
 volumes:
   logs:
+  database:
 networks:
   koa-network:
     driver: bridge
