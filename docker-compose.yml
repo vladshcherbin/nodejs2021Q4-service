@@ -16,6 +16,7 @@ services:
       - ${PORT}
     volumes:
       - ./src:/home/node/app/src
+      - logs:/home/node/app/logs
     restart: on-failure
   postgres:
     build:
@@ -33,6 +34,8 @@ services:
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     restart: on-failure
+volumes:
+  logs:
 networks:
   koa-network:
     driver: bridge
