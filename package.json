@@ -1,7 +1,7 @@
 {
   "name": "trello-competitor",
   "scripts": {
-    "dev": "nodemon -w src -L",
+    "dev": "nodemon -L --exitcrash -w src",
     "lint": "eslint src",
     "start": "node --experimental-specifier-resolution node -r dotenv/config src/server.js",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
