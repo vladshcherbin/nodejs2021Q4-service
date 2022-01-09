@@ -28,6 +28,14 @@ When the server is up, run tests:
 npm test
 ```
 
+## Docker image size
+
+To see docker image size, run:
+
+```console
+docker-compose images
+```
+
 ## Lint project
 
 Lint the project using:
