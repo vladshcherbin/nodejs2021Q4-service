@@ -1,41 +1,31 @@
 # REST service
 
-To run the project, follow the steps below (choose `npm` or `yarn` option).
+To run the project, follow the steps below. Docker with docker compose needs to be installed.
 
 ## Install dependencies
 
 First, install dependencies:
 
 ```console
-# npm
 npm i
-
-# yarn
-yarn
 ```
 
-## Start server
+## Start server using docker
 
-Start application server:
+Create and run docker container:
 
 ```console
-# npm
-npm start
-
-# yarn
-yarn start
+docker-compose up
 ```
+
+Server should be up and running on 4000 port.
 
 ## Run tests
 
 When the server is up, run tests:
 
 ```console
-# npm
 npm test
-
-# yarn
-yarn test
 ```
 
 ## Lint project
@@ -43,9 +33,5 @@ yarn test
 Lint the project using:
 
 ```console
-# npm
 npm run lint
-
-# yarn
-yarn lint
 ```
