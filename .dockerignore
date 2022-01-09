@@ -3,4 +3,6 @@ test
 .env
 .gitignore
 Dockerfile
+database
 readme.md
+pgdata
