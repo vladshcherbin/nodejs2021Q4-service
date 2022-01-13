@@ -1,11 +1,11 @@
 FROM node:16-alpine
 
-WORKDIR /home/node/app
+WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package.json yarn.lock ./
 
-RUN npm i
+RUN yarn --frozen-lockfile && yarn cache clean
 
 COPY . .
 
-CMD ["npm", "run", "dev"]
+CMD ["yarn", "dev"]
