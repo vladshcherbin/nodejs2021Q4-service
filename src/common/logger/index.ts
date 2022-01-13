@@ -5,11 +5,9 @@ export default pino({
   transport: {
     targets: [
       {
-        target: 'pino-pretty',
+        target: '../prettifier',
         level: 'info',
-        options: {
-          translateTime: true
-        }
+        options: {}
       },
       {
         target: 'pino/file',
@@ -18,7 +16,18 @@ export default pino({
           destination: 'logs/app.log',
           mkdir: true
         }
+      },
+      {
+        target: 'pino/file',
+        level: 'error',
+        options: {
+          destination: 'logs/error.log',
+          mkdir: true
+        }
       }
     ]
-  }
+  },
+  ...(process.env.LOG_LEVEL && {
+    level: process.env.LOG_LEVEL
+  })
 })
