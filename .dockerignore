@@ -1,7 +1,5 @@
-node_modules
-test
-.env
-.gitignore
-Dockerfile
-database
-readme.md
+*
+!package.json
+!yarn.lock
+!tsconfig.json
+!src
