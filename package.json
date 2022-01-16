@@ -2,9 +2,9 @@
   "name": "trello-competitor",
   "scripts": {
     "build": "tsc",
-    "dev": "nodemon -x node --experimental-loader ts-node/esm --experimental-specifier-resolution node -r dotenv/config src/server.ts -e ts -w src --exitcrash",
     "db:latest": "yarn knex migrate:latest",
     "db:rollback": "yarn knex migrate:rollback",
+    "dev": "nodemon -x node --experimental-loader ts-node/esm --experimental-specifier-resolution node -r dotenv/config src/server.ts -e ts -w src",
     "lint": "eslint src --ext .ts",
     "start": "node --experimental-specifier-resolution node -r dotenv/config dist/server.js",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand"
