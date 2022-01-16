@@ -6,5 +6,11 @@ module.exports = {
   plugins: ['eslint-plugin-tsdoc'],
   rules: {
     'tsdoc/syntax': 'warn'
-  }
+  },
+  overrides: [{
+    files: 'src/**/index.ts',
+    rules: {
+      'import/prefer-default-export': 'off'
+    }
+  }]
 }
