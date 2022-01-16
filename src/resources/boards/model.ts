@@ -1,24 +1,21 @@
-import { BaseModel } from '../../common/database'
-import Task from '../tasks/model'
+import typeorm from 'typeorm'
 
 /**
  * Board database model.
  */
-class Board extends BaseModel {
-  static tableName = 'boards'
+@typeorm.Entity('boards')
+class Board extends typeorm.BaseEntity {
+  @typeorm.PrimaryGeneratedColumn('uuid')
+    id!: string
 
-  static jsonAttributes = ['columns']
+  @typeorm.Column()
+    title!: string
 
-  static relationMappings = {
-    tasks: {
-      relation: BaseModel.HasManyRelation,
-      modelClass: Task,
-      join: {
-        from: 'boards.id',
-        to: 'tasks.boardId'
-      }
-    }
-  }
+  @typeorm.Column('jsonb')
+    columns!: {
+    title: string
+    order: number
+  }[]
 }
 
 export default Board

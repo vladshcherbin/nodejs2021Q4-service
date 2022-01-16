@@ -1,4 +1,3 @@
-import { PartialModelObject } from 'objection'
 import { array, number, object, string } from 'yup'
 import { validate } from '../../common/validation'
 import Board from './model'
@@ -9,7 +8,7 @@ import Board from './model'
  * @returns List of boards
  */
 export function findAll() {
-  return Board.query()
+  return Board.find()
 }
 
 /**
@@ -18,11 +17,11 @@ export function findAll() {
  * @param boardId - Board id
  * @returns Specified board
  *
- * @throws {@link NotFoundError}
+ * @throws {@link typeorm#EntityNotFoundError}
  * Thrown when board is missing
  */
 export function findById(boardId: Board['id']) {
-  return Board.query().findById(boardId).throwIfNotFound()
+  return Board.findOneOrFail(boardId)
 }
 
 /**
@@ -31,7 +30,7 @@ export function findById(boardId: Board['id']) {
  * @param data - Board data
  * @returns Created board
  */
-export async function create(data: PartialModelObject<Board>) {
+export async function create(data: Partial<Board>) {
   const schema = object({
     title: string().required().min(2),
     columns: array(object({
@@ -39,9 +38,10 @@ export async function create(data: PartialModelObject<Board>) {
       order: number().required().integer()
     })).required()
   })
-  const validData = await validate(schema, data)
+  const validData: Partial<Board> = await validate(schema, data)
+  const { id } = await Board.create(validData).save()
 
-  return Board.query().insert(validData)
+  return Board.findOne(id)
 }
 
 /**
@@ -51,10 +51,10 @@ export async function create(data: PartialModelObject<Board>) {
  * @param data - Updated board data
  * @returns Updated board
  *
- * @throws {@link NotFoundError}
+ * @throws {@link typeorm#EntityNotFoundError}
  * Thrown when board is missing
  */
-export async function update(boardId: Board['id'], data: PartialModelObject<Board>) {
+export async function update(boardId: Board['id'], data: Partial<Board>) {
   const schema = object({
     title: string().required().min(2),
     columns: array(object({
@@ -63,8 +63,14 @@ export async function update(boardId: Board['id'], data: PartialModelObject<Boar
     })).required()
   })
   const validData = await validate(schema, data)
+  const board = await Board.findOneOrFail(boardId)
 
-  return Board.query().updateAndFetchById(boardId, validData).throwIfNotFound()
+  board.title = validData.title || board.title
+  board.columns = validData.columns || board.columns
+
+  await board.save()
+
+  return Board.findOne(boardId)
 }
 
 /**
@@ -73,14 +79,13 @@ export async function update(boardId: Board['id'], data: PartialModelObject<Boar
  * @param boardId - Board id
  * @returns Deleted board
  *
- * @throws {@link NotFoundError}
+ * @throws {@link typeorm#EntityNotFoundError}
  * Thrown when board is missing
  */
 export async function del(boardId: Board['id']) {
-  const board = await Board.query().findById(boardId).throwIfNotFound()
+  const board = await Board.findOneOrFail(boardId)
 
-  await board.$query().delete()
-  await Board.relatedQuery('tasks').for(boardId).delete()
+  await board.remove()
 
   return board
 }
