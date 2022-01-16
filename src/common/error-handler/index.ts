@@ -1,6 +1,6 @@
 import { STATUS_CODES } from 'http'
 import { Context, HttpError, Next } from 'koa'
-import { NotFoundError } from '../database'
+import typeorm from 'typeorm'
 import { ValidationError } from '../validation'
 
 /**
@@ -13,10 +13,10 @@ export default function errorHandler() {
     try {
       await next()
     } catch (error) {
-      if (error instanceof NotFoundError) {
+      if (error instanceof typeorm.EntityNotFoundError) {
         context.status = 404
         context.body = {
-          message: error.message
+          message: 'Requested item doesn\'t exist'
         }
       } else if (error instanceof ValidationError) {
         context.status = 400
