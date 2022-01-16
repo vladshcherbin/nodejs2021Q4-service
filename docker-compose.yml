@@ -1,0 +1,31 @@
+services:
+  api:
+    build: .
+    depends_on:
+      - postgres
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - ${PORT}
+    volumes:
+      - ./src:/app/src
+      - logs:/app/logs
+    networks:
+      - koa-network
+    restart: on-failure
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks:
+      - koa-network
+    restart: always
+volumes:
+  logs:
+  database:
+networks:
+  koa-network:
+    driver: bridge
