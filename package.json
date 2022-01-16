@@ -21,10 +21,10 @@
     "knex": "^0.21.21",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
-    "objection": "^2.2.18",
+    "pg": "^8.7.1",
     "pino": "^7.5.1",
     "pino-pretty": "^7.3.0",
-    "sqlite3": "^5.0.2",
+    "typeorm": "^0.2.41",
     "yup": "^0.32.11"
   },
   "devDependencies": {
