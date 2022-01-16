@@ -2,14 +2,6 @@
 
 To run the project, follow the steps below. Docker with docker compose needs to be installed.
 
-## Install dependencies
-
-First, install dependencies:
-
-```console
-npm i
-```
-
 ## Environment variables
 
 Create `.env` file and define environment variables (example):
@@ -32,15 +24,23 @@ Server should be up and running on 4000 port.
 
 ## Run migrations
 
-Execute migrations scripts in docker container:
+Once server is up, execute migrations script in docker container:
 
 ```console
 docker-compose run api yarn db:latest
 ```
 
+## Install dependencies
+
+Install project dependencies:
+
+```console
+npm i
+```
+
 ## Run tests
 
-When the server is up, run tests:
+Run tests using:
 
 ```console
 npm test
