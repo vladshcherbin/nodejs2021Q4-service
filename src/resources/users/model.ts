@@ -1,37 +1,21 @@
-import { Pojo } from 'objection'
-import { BaseModel } from '../../common/database'
-import Task from '../tasks/model'
+import typeorm from 'typeorm'
 
 /**
  * User database model.
  */
-class User extends BaseModel {
-  static tableName = 'users'
+@typeorm.Entity('users')
+class User extends typeorm.BaseEntity {
+  @typeorm.PrimaryGeneratedColumn('uuid')
+    id!: string
 
-  static relationMappings = {
-    tasks: {
-      relation: BaseModel.HasManyRelation,
-      modelClass: Task,
-      join: {
-        from: 'users.id',
-        to: 'tasks.userId'
-      }
-    }
-  }
+  @typeorm.Column()
+    name!: string
 
-  /**
-   * Removes password from user external json.
-   *
-   * @param json - The JSON POJO in internal format
-   * @returns The JSON POJO in external format
-   */
-  $formatJson(json: Pojo) {
-    const formattedJson = super.$formatJson(json)
+  @typeorm.Column({ nullable: true })
+    login?: string
 
-    delete formattedJson.password
-
-    return formattedJson
-  }
+  @typeorm.Column({ nullable: true, select: false })
+    password?: string
 }
 
 export default User

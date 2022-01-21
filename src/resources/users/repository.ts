@@ -1,7 +1,5 @@
-import { PartialModelObject } from 'objection'
 import { object, string } from 'yup'
 import { validate } from '../../common/validation'
-import Task from '../tasks/model'
 import User from './model'
 
 /**
@@ -10,7 +8,7 @@ import User from './model'
  * @returns List of users
  */
 export function findAll() {
-  return User.query()
+  return User.find()
 }
 
 /**
@@ -19,11 +17,11 @@ export function findAll() {
  * @param userId - User id
  * @returns Specified user
  *
- * @throws {@link NotFoundError}
+ * @throws {@link typeorm#EntityNotFoundError}
  * Thrown when user is missing
  */
 export function findById(userId: User['id']) {
-  return User.query().findById(userId).throwIfNotFound()
+  return User.findOneOrFail(userId)
 }
 
 /**
@@ -32,15 +30,16 @@ export function findById(userId: User['id']) {
  * @param data - User data
  * @returns Created user
  */
-export async function create(data: PartialModelObject<User>) {
+export async function create(data: Partial<User>) {
   const schema = object({
     name: string().required().min(2),
     login: string().min(4),
     password: string().min(8)
   })
-  const validData = await validate(schema, data)
+  const validData: Partial<User> = await validate(schema, data)
+  const { id } = await User.create(validData).save()
 
-  return User.query().insert(validData)
+  return User.findOne(id)
 }
 
 /**
@@ -50,18 +49,25 @@ export async function create(data: PartialModelObject<User>) {
  * @param data - Updated user data
  * @returns Updated user
  *
- * @throws {@link NotFoundError}
+ * @throws {@link typeorm#EntityNotFoundError}
  * Thrown when user is missing
  */
-export async function update(userId: User['id'], data: PartialModelObject<User>) {
+export async function update(userId: User['id'], data: Partial<User>) {
   const schema = object({
     name: string().required().min(2),
     login: string().min(4),
     password: string().min(8)
   })
   const validData = await validate(schema, data)
+  const user = await User.findOneOrFail(userId)
 
-  return User.query().updateAndFetchById(userId, validData).throwIfNotFound()
+  user.name = validData.name || user.name
+  user.login = validData.login || user.login
+  user.password = validData.password || user.password
+
+  await user.save()
+
+  return User.findOne(userId)
 }
 
 /**
@@ -70,14 +76,13 @@ export async function update(userId: User['id'], data: PartialModelObject<User>)
  * @param userId - User id
  * @returns Deleted user
  *
- * @throws {@link NotFoundError}
+ * @throws {@link typeorm#EntityNotFoundError}
  * Thrown when user is missing
  */
 export async function del(userId: User['id']) {
-  const user = await User.query().findById(userId).throwIfNotFound()
+  const user = await User.findOneOrFail(userId)
 
-  await user.$query().delete()
-  await User.relatedQuery('tasks').for(userId).patch({ userId: null } as PartialModelObject<Task>)
+  await user.remove()
 
   return user
 }

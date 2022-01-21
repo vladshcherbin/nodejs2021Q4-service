@@ -2,12 +2,14 @@
 
 To run the project, follow the steps below. Docker with docker compose needs to be installed.
 
-## Install dependencies
+## Environment variables
 
-First, install dependencies:
+Create `.env` file and define environment variables (example):
 
-```console
-npm i
+```env
+PORT = 4000
+POSTGRES_DB = api-dev
+POSTGRES_PASSWORD = api2021
 ```
 
 ## Start server using docker
@@ -20,20 +22,28 @@ docker-compose up
 
 Server should be up and running on 4000 port.
 
+## Run migrations
+
+Once server is up, execute migrations script in docker container:
+
+```console
+docker-compose run api yarn db:latest
+```
+
+## Install dependencies
+
+Install project dependencies:
+
+```console
+npm i
+```
+
 ## Run tests
 
-When the server is up, run tests:
+Run tests using:
 
 ```console
 npm test
-```
-
-## Docker image size
-
-To see docker image size, run:
-
-```console
-docker-compose images
 ```
 
 ## Lint project

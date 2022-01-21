@@ -6,9 +6,11 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
-  "include": ["src"],
+  "include": ["src", "migrations"],
   "ts-node": {
     "transpileOnly": true,
     "transpiler": "ts-node/transpilers/swc-experimental"
