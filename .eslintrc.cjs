@@ -5,6 +5,7 @@ module.exports = {
   },
   plugins: ['eslint-plugin-tsdoc'],
   rules: {
+    'newline-per-chained-call': ['error', { ignoreChainWithDepth: 5 }],
     'tsdoc/syntax': 'warn'
   },
   overrides: [{
