@@ -10,7 +10,7 @@ import Task from './model'
  * @returns List of tasks
  */
 export function findAll(boardId: Board['id']) {
-  return Task.find({ where: { boardId } })
+  return Task.query().where({ board_id: boardId })
 }
 
 /**
@@ -20,11 +20,11 @@ export function findAll(boardId: Board['id']) {
  * @param taskId - Task id
  * @returns Specified task
  *
- * @throws {@link typeorm#EntityNotFoundError}
+ * @throws {@link objection#NotFoundError}
  * Thrown when task is missing
  */
 export function findById(boardId: Board['id'], taskId: Task['id']) {
-  return Task.findOneOrFail({ where: { id: taskId, boardId } })
+  return Task.query().findOne({ id: taskId, board_id: boardId }).throwIfNotFound()
 }
 
 /**
@@ -40,13 +40,11 @@ export async function create(boardId: Board['id'], data: Partial<Task>) {
     order: number().required().integer(),
     description: string().min(6),
     userId: string().nullable().uuid(),
-    boardId: string().nullable().uuid(),
     columnId: string().nullable().uuid()
   })
-  const validData: Partial<Task> = await validate(schema, data)
-  const { id } = await Task.create({ ...validData, boardId }).save()
+  const validData = await validate(schema, data)
 
-  return Task.findOne(id)
+  return Task.query().insert({ boardId, ...validData }).returning('*')
 }
 
 /**
@@ -57,7 +55,7 @@ export async function create(boardId: Board['id'], data: Partial<Task>) {
  * @param data - Updated task data
  * @returns Updated task
  *
- * @throws {@link typeorm#EntityNotFoundError}
+ * @throws {@link objection#NotFoundError}
  * Thrown when task is missing
  */
 export async function update(boardId: Board['id'], taskId: Task['id'], data: Partial<Task>) {
@@ -66,22 +64,15 @@ export async function update(boardId: Board['id'], taskId: Task['id'], data: Par
     order: number().required().integer(),
     description: string().min(6),
     userId: string().nullable().uuid(),
-    boardId: string().nullable().uuid(),
     columnId: string().nullable().uuid()
   })
   const validData = await validate(schema, data)
-  const task = await Task.findOneOrFail({ where: { id: taskId, boardId } })
 
-  task.title = validData.title || task.title
-  task.order = validData.order || task.order
-  task.description = validData.description || task.description
-  task.userId = validData.userId || task.userId
-  task.boardId = validData.boardId || task.boardId
-  task.columnId = validData.columnId || task.columnId
-
-  await task.save()
-
-  return Task.findOne({ where: { id: taskId, boardId } })
+  return Task.query()
+    .findOne({ id: taskId, board_id: boardId })
+    .update(validData)
+    .returning('*')
+    .throwIfNotFound()
 }
 
 /**
@@ -91,13 +82,13 @@ export async function update(boardId: Board['id'], taskId: Task['id'], data: Par
  * @param taskId - Task id
  * @returns Deleted task
  *
- * @throws {@link typeorm#EntityNotFoundError}
+ * @throws {@link objection#NotFoundError}
  * Thrown when task is missing
  */
 export async function del(boardId: Board['id'], taskId: Task['id']) {
-  const task = await Task.findOneOrFail({ where: { id: taskId, boardId } })
-
-  await task.remove()
-
-  return task
+  return Task.query()
+    .where({ id: taskId, board_id: boardId })
+    .delete()
+    .returning('*')
+    .throwIfNotFound()
 }

@@ -1,15 +1,18 @@
-import typeorm from 'typeorm'
-import Board from '../../resources/boards/model'
-import Task from '../../resources/tasks/model'
-import User from '../../resources/users/model'
+import knex from 'knex'
+import { Model } from 'objection'
 
 /**
- * Connects to postgres database.
+ * Creates database connection and connects models.
+ *
+ * @returns Database connection
  */
-export default async function connectDatabase() {
-  await typeorm.createConnection({
-    type: 'postgres',
-    url: process.env.DATABASE_URL,
-    entities: [Board, Task, User]
+export default function connectDatabase() {
+  const knexConnection = knex({
+    client: 'pg',
+    connection: process.env.DATABASE_URL
   })
+
+  Model.knex(knexConnection)
+
+  return knexConnection
 }

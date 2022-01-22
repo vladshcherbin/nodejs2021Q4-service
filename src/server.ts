@@ -8,7 +8,7 @@ import boardsRouter from './resources/boards/router'
 import tasksRouter from './resources/tasks/router'
 import usersRouter from './resources/users/router'
 
-await connectDatabase()
+connectDatabase()
 
 const app = new Koa()
 

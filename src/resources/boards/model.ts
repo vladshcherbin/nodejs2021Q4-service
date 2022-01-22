@@ -1,21 +1,21 @@
-import typeorm from 'typeorm'
+import { BaseModel } from '../../common/database'
 
 /**
- * Board database model.
+ * Board model.
  */
-@typeorm.Entity('boards')
-class Board extends typeorm.BaseEntity {
-  @typeorm.PrimaryGeneratedColumn('uuid')
-    id!: string
+class Board extends BaseModel {
+  id!: string
 
-  @typeorm.Column()
-    title!: string
+  title!: string
 
-  @typeorm.Column('jsonb')
-    columns!: {
+  columns!: {
     title: string
     order: number
   }[]
+
+  static tableName = 'boards'
+
+  static jsonAttributes = ['columns']
 }
 
 export default Board

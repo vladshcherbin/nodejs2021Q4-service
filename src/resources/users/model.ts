@@ -1,21 +1,27 @@
-import typeorm from 'typeorm'
+import { Pojo } from 'objection'
+import { BaseModel } from '../../common/database'
 
 /**
- * User database model.
+ * User model.
  */
-@typeorm.Entity('users')
-class User extends typeorm.BaseEntity {
-  @typeorm.PrimaryGeneratedColumn('uuid')
-    id!: string
+class User extends BaseModel {
+  id!: string
 
-  @typeorm.Column()
-    name!: string
+  name!: string
 
-  @typeorm.Column({ nullable: true })
-    login?: string
+  login?: string
 
-  @typeorm.Column({ nullable: true, select: false })
-    password?: string
+  password?: string
+
+  static tableName = 'users'
+
+  $formatJson(json: Pojo) {
+    const formattedJson = super.$formatJson(json)
+
+    delete formattedJson.password
+
+    return formattedJson
+  }
 }
 
 export default User

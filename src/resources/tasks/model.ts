@@ -1,38 +1,24 @@
-import typeorm from 'typeorm'
-import Board from '../boards/model'
-import User from '../users/model'
+import { BaseModel } from '../../common/database'
 
 /**
- * Task database model.
+ * Task model.
  */
-@typeorm.Entity('tasks')
-class Task extends typeorm.BaseEntity {
-  @typeorm.PrimaryGeneratedColumn('uuid')
-    id!: string
+class Task extends BaseModel {
+  id!: string
 
-  @typeorm.Column()
-    title!: string
+  boardId?: string
 
-  @typeorm.Column({ nullable: true })
-    order?: number
+  columnId?: string
 
-  @typeorm.Column({ nullable: true })
-    description?: string
+  userId?: string
 
-  @typeorm.Column('uuid', { nullable: true })
-    userId?: string
+  title!: string
 
-  @typeorm.Column('uuid', { nullable: true })
-    boardId?: string
+  order?: number
 
-  @typeorm.Column('uuid', { nullable: true })
-    columnId?: string
+  description?: string
 
-  @typeorm.ManyToOne(() => Board, (board) => board.id)
-    board?: Board
-
-  @typeorm.ManyToOne(() => User, (user) => user.id)
-    user?: User
+  static tableName = 'tasks'
 }
 
 export default Task

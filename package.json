@@ -23,10 +23,10 @@
     "knex": "^1.0.1",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
+    "objection": "^3.0.1",
     "pg": "^8.7.1",
     "pino": "^7.6.3",
     "pino-pretty": "^7.3.0",
-    "typeorm": "^0.2.41",
     "yup": "^0.32.11"
   },
   "devDependencies": {
