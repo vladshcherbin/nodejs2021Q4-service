@@ -1,5 +1,6 @@
-import { Pojo } from 'objection'
+import { ModelOptions, Pojo, QueryContext } from 'objection'
 import { BaseModel } from '../../common/database'
+import { hash } from '../../common/hash'
 
 /**
  * User model.
@@ -14,6 +15,18 @@ class User extends BaseModel {
   password?: string
 
   static tableName = 'users'
+
+  async $beforeInsert(queryContext: QueryContext) {
+    await super.$beforeInsert(queryContext)
+
+    this.password &&= await hash(this.password)
+  }
+
+  async $beforeUpdate(options: ModelOptions, queryContext: QueryContext) {
+    await super.$beforeUpdate(options, queryContext)
+
+    this.password &&= await hash(this.password)
+  }
 
   $formatJson(json: Pojo) {
     const formattedJson = super.$formatJson(json)
