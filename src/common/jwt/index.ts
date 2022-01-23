@@ -12,7 +12,7 @@ export function generateToken(payload: object, options: jwt.SignOptions) {
 }
 
 /**
- * Verify token.
+ * Verifies token.
  *
  * @param token - Token to verify
  * @returns Decoded data

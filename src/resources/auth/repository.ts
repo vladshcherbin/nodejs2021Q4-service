@@ -6,6 +6,12 @@ import { generateToken } from '../../common/jwt'
 import { validate } from '../../common/validation'
 import User from '../users/model'
 
+/**
+ * Logs in the application.
+ *
+ * @param data - User credentials
+ * @returns Authentication token
+ */
 export async function logIn(data: Pick<User, 'login' | 'password'>) {
   const schema = object({
     login: string().required(),
