@@ -1,6 +1,7 @@
 import { STATUS_CODES } from 'http'
 import { Context, HttpError, Next } from 'koa'
 import { NotFoundError } from 'objection'
+import { AuthenticationError } from '../auth'
 import { ValidationError } from '../validation'
 
 /**
@@ -25,6 +26,11 @@ export default function errorHandler() {
           ...(error.validationErrors && {
             validationErrors: error.validationErrors
           })
+        }
+      } else if (error instanceof AuthenticationError) {
+        context.status = 403
+        context.body = {
+          message: error.message
         }
       } else if (error instanceof HttpError) {
         context.status = error.statusCode || error.status
