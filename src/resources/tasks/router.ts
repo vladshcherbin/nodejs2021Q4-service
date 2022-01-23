@@ -1,10 +1,7 @@
 import Router from '@koa/router'
-import { auth } from '../../common/auth'
 import * as Task from './repository'
 
 const router = new Router({ prefix: '/boards/:boardId/tasks' })
-
-router.use(auth())
 
 router
   .get('/', async (context) => {

@@ -1,10 +1,7 @@
 import Router from '@koa/router'
-import { auth } from '../../common/auth'
 import * as User from './repository'
 
 const router = new Router({ prefix: '/users' })
-
-router.use(auth())
 
 router
   .get('/', async (context) => {
