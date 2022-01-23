@@ -10,9 +10,9 @@ class User extends BaseModel {
 
   name!: string
 
-  login?: string
+  login!: string
 
-  password?: string
+  password!: string
 
   static tableName = 'users'
 
