@@ -1,7 +1,10 @@
 import Router from '@koa/router'
+import { auth } from '../../common/auth'
 import * as Board from './repository'
 
 const router = new Router({ prefix: '/boards' })
+
+router.use(auth())
 
 router
   .get('/', async (context) => {

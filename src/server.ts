@@ -1,6 +1,5 @@
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
-import { auth } from './common/auth'
 import { connectDatabase } from './common/database'
 import errorHandler from './common/error-handler'
 import { httpLogger, logBodyParserError } from './common/http-logger'
@@ -21,7 +20,6 @@ app
   .use(httpLogger())
   .use(errorHandler())
   .use(authRouter.routes())
-  .use(auth())
   .use(boardsRouter.routes())
   .use(tasksRouter.routes())
   .use(usersRouter.routes())
