@@ -7,7 +7,8 @@
     "dev": "nodemon -x node --experimental-loader ts-node/esm --experimental-specifier-resolution node -r dotenv/config src/server.ts -e ts -w src",
     "lint": "eslint src --ext .ts",
     "start": "node --experimental-specifier-resolution node -r dotenv/config dist/server.js",
-    "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand"
+    "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
+    "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace"
   },
   "jest": {
     "testEnvironment": "node",
