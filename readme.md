@@ -10,6 +10,7 @@ Create `.env` file and define environment variables (example):
 PORT = 4000
 POSTGRES_DB = api-dev
 POSTGRES_PASSWORD = api2021
+JWT_SECRET = EWSN870nN2F537jf0HpynxuornOqHXA8jYfE6anS
 ```
 
 ## Start server using docker
@@ -40,10 +41,10 @@ npm i
 
 ## Run tests
 
-Run tests using:
+Run auth tests using:
 
 ```console
-npm test
+npm run test:auth
 ```
 
 ## Lint project
