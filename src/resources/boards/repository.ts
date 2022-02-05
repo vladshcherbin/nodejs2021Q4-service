@@ -55,15 +55,15 @@ export async function create(data: Partial<Board>) {
  */
 export async function update(boardId: Board['id'], data: Partial<Board>) {
   const schema = object({
-    title: string().required().min(2),
+    title: string().min(2),
     columns: array(object({
       title: string().required().min(2),
       order: number().required().integer()
-    })).required()
+    }))
   })
   const validData = await validate(schema, data)
 
-  return Board.query().findById(boardId).update(validData).returning('*').throwIfNotFound()
+  return Board.query().findById(boardId).patch(validData).returning('*').throwIfNotFound()
 }
 
 /**

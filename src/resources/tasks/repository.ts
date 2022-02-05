@@ -60,8 +60,8 @@ export async function create(boardId: Board['id'], data: Partial<Task>) {
  */
 export async function update(boardId: Board['id'], taskId: Task['id'], data: Partial<Task>) {
   const schema = object({
-    title: string().required().min(2),
-    order: number().required().integer(),
+    title: string().min(2),
+    order: number().integer(),
     description: string().min(6),
     userId: string().nullable().uuid(),
     columnId: string().nullable().uuid()
@@ -70,7 +70,7 @@ export async function update(boardId: Board['id'], taskId: Task['id'], data: Par
 
   return Task.query()
     .findOne({ id: taskId, board_id: boardId })
-    .update(validData)
+    .patch(validData)
     .returning('*')
     .throwIfNotFound()
 }

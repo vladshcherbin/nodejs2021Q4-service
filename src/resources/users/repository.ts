@@ -33,8 +33,8 @@ export function findById(userId: User['id']) {
 export async function create(data: Partial<User>) {
   const schema = object({
     name: string().required().min(2),
-    login: string().min(4),
-    password: string().min(8)
+    login: string().required().min(4),
+    password: string().required().min(8)
   })
   const validData = await validate(schema, data)
 
@@ -53,13 +53,13 @@ export async function create(data: Partial<User>) {
  */
 export async function update(userId: User['id'], data: Partial<User>) {
   const schema = object({
-    name: string().required().min(2),
+    name: string().min(2),
     login: string().min(4),
     password: string().min(8)
   })
   const validData = await validate(schema, data)
 
-  return User.query().findById(userId).update(validData).returning('*').throwIfNotFound()
+  return User.query().findById(userId).patch(validData).returning('*').throwIfNotFound()
 }
 
 /**
