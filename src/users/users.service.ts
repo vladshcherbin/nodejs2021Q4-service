@@ -15,6 +15,10 @@ export default class UsersService {
     return this.userModel.query().findById(id)
   }
 
+  findByLogin(login: User['login']) {
+    return this.userModel.query().findOne({ login })
+  }
+
   create(createUserDto: CreateUserDto) {
     return this.userModel.query().insert(createUserDto).returning('*')
   }

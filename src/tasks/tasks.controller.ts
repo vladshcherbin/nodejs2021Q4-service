@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common'
+import { Body, Controller, Delete, Get, HttpCode, Param, ParseUUIDPipe, Post, Put, UseGuards } from '@nestjs/common'
+import JwtGuard from '../auth/guards/jwt.guard'
 import CreateTaskDto from './dto/create-task.dto'
 import UpdateTaskDto from './dto/update-task.dto'
 import TasksService from './tasks.service'
 
 @Controller('boards/:boardId/tasks')
+@UseGuards(JwtGuard)
 export default class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 

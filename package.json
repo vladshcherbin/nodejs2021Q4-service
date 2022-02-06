@@ -13,7 +13,9 @@
   "dependencies": {
     "@nestjs/common": "^8.2.6",
     "@nestjs/core": "^8.2.6",
+    "@nestjs/jwt": "^8.0.0",
     "@nestjs/mapped-types": "^1.0.1",
+    "@nestjs/passport": "^8.1.0",
     "@nestjs/platform-express": "^8.2.6",
     "@willsoto/nestjs-objection": "^7.0.0",
     "bcrypt": "^5.0.1",
@@ -22,6 +24,8 @@
     "dotenv": "^16.0.0",
     "knex": "^1.0.2",
     "objection": "^3.0.1",
+    "passport": "^0.5.2",
+    "passport-jwt": "^4.0.0",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.2"
@@ -31,6 +35,7 @@
     "@shcherbin/eslint-config": "^0.3.1",
     "@types/bcrypt": "^5.0.0",
     "@types/node": "^16.11.22",
+    "@types/passport-jwt": "^3.0.6",
     "chai": "4.3.4",
     "cross-env": "^7.0.3",
     "debug": "4.3.3",
