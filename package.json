@@ -8,7 +8,8 @@
     "lint": "eslint src --ext .ts",
     "start": "node --experimental-specifier-resolution node dist/server.js",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
-    "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace"
+    "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",
+    "test:load": "artillery run artillery.yaml"
   },
   "dependencies": {
     "@nestjs/common": "^8.2.6",
@@ -44,6 +45,7 @@
     "@types/multer": "^1.4.7",
     "@types/node": "^16.11.22",
     "@types/passport-jwt": "^3.0.6",
+    "artillery": "^2.0.0-11",
     "chai": "4.3.4",
     "cross-env": "^7.0.3",
     "debug": "4.3.3",
