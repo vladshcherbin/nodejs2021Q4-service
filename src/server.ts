@@ -1,41 +1,37 @@
-import Koa from 'koa'
-import bodyParser from 'koa-bodyparser'
-import { connectDatabase } from './common/database'
-import errorHandler from './common/error-handler'
-import { httpLogger, logBodyParserError } from './common/http-logger'
-import logger from './common/logger'
-import authRouter from './resources/auth/router'
-import boardsRouter from './resources/boards/router'
-import tasksRouter from './resources/tasks/router'
-import usersRouter from './resources/users/router'
+import { ValidationPipe } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
+import { NestFactory } from '@nestjs/core'
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
+import multipart from 'fastify-multipart'
+import { Logger } from 'nestjs-pino'
+import AppModule from './app.module'
 
-connectDatabase()
+async function setupApp(useFastify: boolean) {
+  if (useFastify) {
+    const app = await NestFactory.create<NestFastifyApplication>(
+      AppModule,
+      new FastifyAdapter(),
+      { bufferLogs: true }
+    )
 
-const app = new Koa()
+    app.register(multipart)
 
-app
-  .use(bodyParser({
-    onerror: logBodyParserError
-  }))
-  .use(httpLogger())
-  .use(errorHandler())
-  .use(authRouter.routes())
-  .use(boardsRouter.routes())
-  .use(tasksRouter.routes())
-  .use(usersRouter.routes())
-  .on('error', (error) => {
-    logger.error(error)
-  })
-  .listen(process.env.PORT || 4000, () => {
-    logger.info('Server is up and running')
-  })
+    return app
+  }
 
-process
-  .on('uncaughtException', (error) => {
-    logger.fatal(error, 'uncaughtException')
-    process.exit(1)
-  })
-  .on('unhandledRejection', (reason) => {
-    logger.fatal(reason || 'unhandledRejection', 'unhandledRejection')
-    process.exit(1)
-  })
+  return NestFactory.create(AppModule, { bufferLogs: true })
+}
+
+async function bootstrap() {
+  const configService = new ConfigService()
+  const useFastify = configService.get('USE_FASTIFY') === 'true'
+  const app = await setupApp(useFastify)
+  const appConfigService = app.get(ConfigService)
+
+  app.useLogger(app.get(Logger))
+  app.useGlobalPipes(new ValidationPipe({ stopAtFirstError: true }))
+
+  await app.listen(appConfigService.get('PORT', 4000))
+}
+
+bootstrap()

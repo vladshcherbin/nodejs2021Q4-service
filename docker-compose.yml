@@ -9,9 +9,12 @@ services:
       DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@postgres/${POSTGRES_DB}
       JWT_SECRET: ${JWT_SECRET}
       PORT: ${PORT}
+      LOG_LEVEL: ${LOG_LEVEL}
+      USE_FASTIFY: ${USE_FASTIFY}
     volumes:
       - ./src:/app/src
       - logs:/app/logs
+      - uploads:/app/uploads
     networks:
       - koa-network
     restart: on-failure
@@ -27,6 +30,7 @@ services:
     restart: always
 volumes:
   logs:
+  uploads:
   database:
 networks:
   koa-network:

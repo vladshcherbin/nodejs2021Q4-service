@@ -8,38 +8,47 @@
     "lint": "eslint src --ext .ts",
     "start": "node --experimental-specifier-resolution node -r dotenv/config dist/server.js",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
-    "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "setupFilesAfterEnv": [
-      "./test/setup.js"
-    ]
+    "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",
+    "test:load": "artillery run artillery.yaml"
   },
   "dependencies": {
-    "@koa/router": "^10.1.1",
+    "@nestjs/common": "^8.2.6",
+    "@nestjs/config": "^1.1.6",
+    "@nestjs/core": "^8.2.6",
+    "@nestjs/jwt": "^8.0.0",
+    "@nestjs/mapped-types": "^1.0.1",
+    "@nestjs/passport": "^8.1.0",
+    "@nestjs/platform-express": "^8.2.6",
+    "@nestjs/platform-fastify": "^8.2.6",
+    "@webundsoehne/nest-fastify-file-upload": "^1.0.0",
+    "@willsoto/nestjs-objection": "^7.0.0",
     "bcrypt": "^5.0.1",
-    "colorette": "^2.0.16",
-    "dotenv": "14.2.0",
-    "is-plain-obj": "^4.0.0",
-    "jsonwebtoken": "^8.5.1",
-    "knex": "^1.0.1",
-    "koa": "^2.13.4",
-    "koa-bodyparser": "^4.3.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2",
+    "dotenv": "^16.0.0",
+    "fastify-multer": "^2.0.2",
+    "fastify-multipart": "^5.3.0",
+    "fs-extra": "^10.0.0",
+    "knex": "^1.0.2",
+    "nestjs-pino": "^2.5.0",
     "objection": "^3.0.1",
-    "pg": "^8.7.1",
-    "pino": "^7.6.4",
-    "pino-pretty": "^7.5.0",
-    "yup": "^0.32.11"
+    "passport": "^0.5.2",
+    "passport-jwt": "^4.0.0",
+    "pg": "^8.7.3",
+    "pino-http": "^6.6.0",
+    "pino-pretty": "^7.5.1",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.5.2"
   },
   "devDependencies": {
+    "@nestjs/cli": "^8.2.0",
     "@shcherbin/eslint-config": "^0.3.1",
-    "@swc/core": "^1.2.133",
     "@types/bcrypt": "^5.0.0",
-    "@types/jsonwebtoken": "^8.5.8",
-    "@types/koa": "^2.13.4",
-    "@types/koa-bodyparser": "^4.3.5",
-    "@types/koa__router": "^8.0.11",
+    "@types/fs-extra": "^9.0.13",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^16.11.22",
+    "@types/passport-jwt": "^3.0.6",
+    "artillery": "^2.0.0-11",
     "chai": "4.3.4",
     "cross-env": "^7.0.3",
     "debug": "4.3.3",
@@ -50,7 +59,13 @@
     "nodemon": "2.0.15",
     "supertest": "6.2.2",
     "ts-node": "^10.4.0",
-    "typescript": "^4.5.5"
+    "typescript": "4.5.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./test/setup.js"
+    ]
   },
   "engines": {
     "node": "16.x"

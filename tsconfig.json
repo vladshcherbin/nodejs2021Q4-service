@@ -12,7 +12,6 @@
   },
   "include": ["src", "migrations"],
   "ts-node": {
-    "transpileOnly": true,
-    "transpiler": "ts-node/transpilers/swc-experimental"
+    "transpileOnly": true
   }
 }
