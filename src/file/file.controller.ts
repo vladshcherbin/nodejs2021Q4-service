@@ -1,15 +1,14 @@
-import { createReadStream } from 'fs'
-import { join } from 'path'
-import { Controller, Get, Param, Post, StreamableFile, UploadedFile, UseInterceptors } from '@nestjs/common'
+import { Controller, Get, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
+import FileService from './file.service'
 
 @Controller('file')
 export default class FileController {
+  constructor(private readonly fileService: FileService) {}
+
   @Get(':filename')
   serveFile(@Param('filename') filename: string) {
-    const file = createReadStream(join(process.cwd(), `uploads/${filename}`))
-
-    return new StreamableFile(file)
+    return this.fileService.serveFile(filename)
   }
 
   @Post()
