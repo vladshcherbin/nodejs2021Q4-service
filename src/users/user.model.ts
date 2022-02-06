@@ -2,7 +2,7 @@ import { ModelOptions, Pojo, QueryContext } from 'objection'
 import BaseModel from '../common/database/base.model'
 import { hash } from '../common/hash'
 
-class User extends BaseModel {
+export default class User extends BaseModel {
   id!: string
 
   name!: string
@@ -33,5 +33,3 @@ class User extends BaseModel {
     return formattedJson
   }
 }
-
-export default User
