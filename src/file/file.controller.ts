@@ -1,5 +1,4 @@
-import { Controller, Get, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
-import { FileInterceptor } from '@nestjs/platform-express'
+import { Controller, Get, Param, Post, UploadedFile } from '@nestjs/common'
 import FileService from './file.service'
 
 @Controller('file')
@@ -12,7 +11,6 @@ export default class FileController {
   }
 
   @Post()
-  @UseInterceptors(FileInterceptor('file', { dest: 'uploads' }))
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     return {
       filename: file.filename

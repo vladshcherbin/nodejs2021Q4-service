@@ -4,9 +4,9 @@
     "build": "tsc",
     "db:latest": "yarn knex migrate:latest",
     "db:rollback": "yarn knex migrate:rollback",
-    "dev": "nodemon -x node --experimental-loader ts-node/esm --experimental-specifier-resolution node src/server.ts -e ts -w src",
+    "dev": "nodemon -x node --experimental-loader ts-node/esm --experimental-specifier-resolution node -r dotenv/config src/server.ts -e ts -w src",
     "lint": "eslint src --ext .ts",
-    "start": "node --experimental-specifier-resolution node dist/server.js",
+    "start": "node --experimental-specifier-resolution node -r dotenv/config dist/server.js",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",
     "test:load": "artillery run artillery.yaml"
