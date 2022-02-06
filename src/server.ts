@@ -1,15 +1,31 @@
 import { ValidationPipe } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
-import { FastifyAdapter } from '@nestjs/platform-fastify'
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
+import multipart from 'fastify-multipart'
 import { Logger } from 'nestjs-pino'
 import AppModule from './app.module'
 
+async function setupApp(useFastify: boolean) {
+  if (useFastify) {
+    const app = await NestFactory.create<NestFastifyApplication>(
+      AppModule,
+      new FastifyAdapter(),
+      { bufferLogs: true }
+    )
+
+    app.register(multipart)
+
+    return app
+  }
+
+  return NestFactory.create(AppModule, { bufferLogs: true })
+}
+
 async function bootstrap() {
   const configService = new ConfigService()
-  const app = (configService.get('USE_FASTIFY') === 'true')
-    ? await NestFactory.create(AppModule, new FastifyAdapter())
-    : await NestFactory.create(AppModule)
+  const useFastify = configService.get('USE_FASTIFY') === 'true'
+  const app = await setupApp(useFastify)
   const appConfigService = app.get(ConfigService)
 
   app.useLogger(app.get(Logger))
