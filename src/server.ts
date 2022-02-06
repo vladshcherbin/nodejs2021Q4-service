@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { FastifyAdapter } from '@nestjs/platform-fastify'
+import { Logger } from 'nestjs-pino'
 import AppModule from './app.module'
 
 async function bootstrap() {
@@ -11,6 +12,7 @@ async function bootstrap() {
     : await NestFactory.create(AppModule)
   const appConfigService = app.get(ConfigService)
 
+  app.useLogger(app.get(Logger))
   app.useGlobalPipes(new ValidationPipe({ stopAtFirstError: true }))
 
   await app.listen(appConfigService.get('PORT', 4000))
