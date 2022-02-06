@@ -3,5 +3,6 @@
 !yarn.lock
 !knexfile.js
 !tsconfig.json
+!tsconfig.build.json
 !migrations
 !src
