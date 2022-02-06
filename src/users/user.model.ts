@@ -1,6 +1,6 @@
+import bcrypt from 'bcrypt'
 import { ModelOptions, Pojo, QueryContext } from 'objection'
 import BaseModel from '../common/database/base.model'
-import { hash } from '../common/hash'
 
 export default class User extends BaseModel {
   id!: string
@@ -16,13 +16,13 @@ export default class User extends BaseModel {
   async $beforeInsert(queryContext: QueryContext) {
     await super.$beforeInsert(queryContext)
 
-    this.password &&= await hash(this.password)
+    this.password &&= await bcrypt.hash(this.password, 12)
   }
 
   async $beforeUpdate(options: ModelOptions, queryContext: QueryContext) {
     await super.$beforeUpdate(options, queryContext)
 
-    this.password &&= await hash(this.password)
+    this.password &&= await bcrypt.hash(this.password, 12)
   }
 
   $formatJson(json: Pojo) {
