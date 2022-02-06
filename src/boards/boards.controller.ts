@@ -31,7 +31,7 @@ export default class BoardsController {
 
   @Delete(':boardId')
   @HttpCode(204)
-  remove(@Param('boardId', new ParseUUIDPipe()) boardId: string) {
-    return this.boardsService.remove(boardId).throwIfNotFound()
+  async remove(@Param('boardId', new ParseUUIDPipe()) boardId: string) {
+    await this.boardsService.remove(boardId).throwIfNotFound()
   }
 }

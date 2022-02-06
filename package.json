@@ -18,6 +18,7 @@
     "@nestjs/mapped-types": "^1.0.1",
     "@nestjs/passport": "^8.1.0",
     "@nestjs/platform-express": "^8.2.6",
+    "@nestjs/platform-fastify": "^8.2.6",
     "@willsoto/nestjs-objection": "^7.0.0",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.1",

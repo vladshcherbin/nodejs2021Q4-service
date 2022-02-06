@@ -41,10 +41,10 @@ export default class TasksController {
 
   @Delete(':taskId')
   @HttpCode(204)
-  remove(
+  async remove(
   @Param('boardId', new ParseUUIDPipe()) boardId: string,
     @Param('taskId', new ParseUUIDPipe()) taskId: string
   ) {
-    return this.tasksService.remove(taskId, boardId).throwIfNotFound()
+    await this.tasksService.remove(taskId, boardId).throwIfNotFound()
   }
 }
